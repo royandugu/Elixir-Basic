@@ -14,20 +14,29 @@ defmodule Cart do
     GenServer.stop(pid)
   end
   #Server-side
+  @impl true
   def init(state) do
     {:ok , state}
   end
+
+  @impl true
   def handle_cast({:add , item}, list) do
     new_list=[item | list]
     {:noreply , new_list}
   end
+
+  @impl true
   def handle_cast({:remove , item}, list) do
     new_list=Enum.reject(list, fn n -> n===item end)
     {:noreply , new_list}
   end
+
+  @impl true
   def handle_call(:view , _ , list) do
     {:reply, list, list}
   end
+
+  @impl true
   def terminate(_reason,list) do
     IO.puts("About to terminate")
     IO.inspect(list)
