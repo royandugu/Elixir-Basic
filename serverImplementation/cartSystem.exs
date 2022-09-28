@@ -37,11 +37,11 @@ end
 
 defmodule Sys do
   def startServer do
-    {:ok, pid}=GenServer.start_link(Cart,[])
+    {:ok, pid}=GenServer.start_link(Cart,[],{:timer , 1000})
     main(pid)
   end
   def main(pid) do
-    {value,symbol}=IO.gets("1. Add into cart\n2. Remove from cart\n3. Display the cart\n4. Stop\n")|>Integer.parse
+    {value,_symbol}=IO.gets("1. Add into cart\n2. Remove from cart\n3. Display the cart\n4. Stop\n")|>Integer.parse
     user_func(value,pid)
   end
   def user_func(value,pid) do
